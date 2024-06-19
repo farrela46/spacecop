@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=SpaceWorld1
+comment1.params=initialScore
+comment1.target=SpaceWorld1(int)
+comment2.params=
+comment2.target=void\ spawnEnemies()
+comment3.params=
+comment3.target=void\ spawnHostages()
+comment4.params=
+comment4.target=void\ act()
+comment5.params=delta
+comment5.target=void\ updateScore(int)
+numComments=6
