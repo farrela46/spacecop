@@ -7,6 +7,8 @@ public class SpaceWorld2 extends World {
     private int enemyCount;
     private ScoreCounter scoreCounter;
     private WaveCounter waveCounter;
+    private final int initialHostageCount = 10; 
+    private final int hostageIncrement = 5; 
 
     public SpaceWorld2(int initialWave, int initialScore) {    
         super(800, 600, 1);
@@ -30,7 +32,7 @@ public class SpaceWorld2 extends World {
         spawnEnemies();
         spawnHostages();
 
-        MusicManager.startBackgroundMusic(); // Start background music
+        MusicManager.startBackgroundMusic(); 
     }
 
     private void spawnEnemies() {
@@ -39,18 +41,13 @@ public class SpaceWorld2 extends World {
             int y = Greenfoot.getRandomNumber(getHeight());
             addObject(new Enemy(), x, y);
         }
-
-        // Spawn 3 hostages per wave
-        for (int i = 0; i < 3; i++) {
-            int x = Greenfoot.getRandomNumber(getWidth());
-            int y = Greenfoot.getRandomNumber(getHeight());
-            addObject(new Hostage(), x, y);
-        }
     }
 
     private void spawnHostages() {
-        // Adding 3 hostages each time for example
-        for (int i = 0; i < 3; i++) {
+        List<Hostage> currentHostages = getObjects(Hostage.class);
+        int hostagesToAdd = initialHostageCount + (wave - 6) * hostageIncrement - currentHostages.size();
+
+        for (int i = 0; i < hostagesToAdd; i++) {
             int x = Greenfoot.getRandomNumber(getWidth());
             int y = Greenfoot.getRandomNumber(getHeight());
             addObject(new Hostage(), x, y);
@@ -64,6 +61,7 @@ public class SpaceWorld2 extends World {
             waveCounter.setWave(wave);
             enemyCount += 5;
             spawnEnemies();
+            spawnHostages();
         } else if (enemies.isEmpty() && wave == 10) {
             Greenfoot.setWorld(new EndWorld(scoreCounter.getScore()));
         }
